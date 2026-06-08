@@ -12,8 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'password']
     
     def create(self, validated_data):
+        # removes password of the validated data
         password = validated_data.pop('password')
         user = User(**validated_data)
+        # encrypts password and asigns it to user
         user.set_password(password)
         user.save()
         
@@ -21,4 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
     
 
 class LoginSerializer(TokenObtainPairSerializer):
+    "Automatically verifies user's credentials and creates a refresh and access token"
     pass
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    "Retrieves user's profile info. It also converts User model into JSON and vice versa"
+    class Meta:
+        model = User
+        fields = ['id', 'username']
