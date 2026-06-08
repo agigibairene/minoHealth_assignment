@@ -180,7 +180,7 @@ Access token lifetime:
 Refresh token lifetime:
 
 ```text
-3 days
+1 day
 ```
 
 ---
